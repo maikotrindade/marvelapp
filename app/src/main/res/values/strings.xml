@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Marvel</string>
+    <string name="characters">Characters</string>
+    <string name="favorites">Favorites</string>
+
+    <string name="network_error">An error occurred, please try again later</string>
+    <string name="no_internet">It seems you are not connected to the internet</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
+
+</resources>
