@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent"
-        tools:context=".characters.ui.MainActivity">
+        tools:context=".characters.view.MainActivity">
 
     <androidx.core.widget.NestedScrollView
             android:id="@+id/containerView"

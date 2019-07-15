@@ -1,5 +1,6 @@
-package io.github.maikotrindade.marvelapp.characters.ui.detail
+package io.github.maikotrindade.marvelapp.characters.view.detail
 
+import android.app.Application
 import android.util.Log
 import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.base.BasePresenter
@@ -9,14 +10,18 @@ import io.github.maikotrindade.marvelapp.util.EncryptUtil.getHash
 import io.github.maikotrindade.marvelapp.util.MobileConnection
 import io.github.maikotrindade.marvelapp.util.SharedUtils
 import io.github.maikotrindade.marvelapp.util.publicKey
+import java.lang.ref.WeakReference
 
-class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePresenter() {
+class DetailsCharacterPresenter : BasePresenter() {
+
+    lateinit var view: WeakReference<DetailsCharacterView>
+    lateinit var application: WeakReference<Application>
 
     fun getComicsSeries(characterId: String) {
-        if (SharedUtils.getConnectionType() == MobileConnection.NO_INTERNET) {
-            view.onRequestError(R.string.no_internet)
+        if (SharedUtils.getConnectionType(application.get()!!) == MobileConnection.NO_INTERNET) {
+            view.get()?.onRequestError(R.string.no_internet)
         } else {
-            view.onRequestStared()
+            view.get()?.onRequestStared()
             requestComicsServer(characterId)
             requestSeriesServer(characterId)
         }
@@ -29,13 +34,13 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
         val disposable = CharactersService.requestComics(timestamp, publicKey, hash!!, characterId)
             .subscribe({ res ->
                 res.body()?.let {
-                    view.onRequestComicsSuccess(it.data.results)
+                    view.get()?.onRequestComicsSuccess(it.data.results)
                 }
             }) { err ->
-                view.onRequestError(R.string.generic_error)
+                view.get()?.onRequestError(R.string.generic_error)
                 Log.d(DetailsCharacterPresenter::class.java.simpleName, err.message)
             }
-        compositeDisposable?.add(disposable)
+        compositeDisposable.add(disposable)
     }
 
     fun requestSeriesServer(characterId: String) {
@@ -45,13 +50,13 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
         val disposable = CharactersService.requestSeries(timestamp, publicKey, hash!!, characterId)
             .subscribe({ res ->
                 res.body()?.let {
-                    view.onRequestSeriesSuccess(it.data.results)
+                    view.get()?.onRequestSeriesSuccess(it.data.results)
                 }
             }) { err ->
-                view.onRequestError(R.string.generic_error)
+                view.get()?.onRequestError(R.string.generic_error)
                 Log.d(DetailsCharacterPresenter::class.java.simpleName, err.message)
             }
-        compositeDisposable?.add(disposable)
+        compositeDisposable.add(disposable)
     }
 
 }

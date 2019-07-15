@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.persistence
+package io.github.maikotrindade.marvelapp.database
 
 import androidx.room.Dao
 import androidx.room.Delete

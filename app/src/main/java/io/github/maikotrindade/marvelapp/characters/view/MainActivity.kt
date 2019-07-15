@@ -1,11 +1,11 @@
-package io.github.maikotrindade.marvelapp.characters.ui
+package io.github.maikotrindade.marvelapp.characters.view
 
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.base.BaseActivity
-import io.github.maikotrindade.marvelapp.characters.ui.list.FavoriteCharactersFragment
-import io.github.maikotrindade.marvelapp.characters.ui.list.ListCharactersFragment
+import io.github.maikotrindade.marvelapp.characters.view.favorite.FavoriteCharactersFragment
+import io.github.maikotrindade.marvelapp.characters.view.list.ListCharactersFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

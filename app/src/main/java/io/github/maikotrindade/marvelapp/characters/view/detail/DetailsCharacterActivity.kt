@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.characters.ui.detail
+package io.github.maikotrindade.marvelapp.characters.view.detail
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -14,11 +14,12 @@ import kotlinx.android.synthetic.main.activity_details_character.*
 
 class DetailsCharacterActivity : BaseActivity(), DetailsCharacterView {
 
-    private val presenter = DetailsCharacterPresenter(this)
+    lateinit var presenter: DetailsCharacterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_character)
+        DetailsCharacterConfigurator.INSTANCE.configure(this)
         setupUI()
     }
 

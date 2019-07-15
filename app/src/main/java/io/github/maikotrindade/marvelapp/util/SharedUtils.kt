@@ -1,17 +1,16 @@
 package io.github.maikotrindade.marvelapp.util
 
+import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import io.github.maikotrindade.marvelapp.base.BaseApp
-
 
 object SharedUtils {
 
-    fun getConnectionType(): MobileConnection {
-        val connectivityManager = BaseApp.applicationContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    fun getConnectionType(context: Application): MobileConnection {
 
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var result = MobileConnection.NO_INTERNET
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

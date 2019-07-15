@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.characters.ui.detail
+package io.github.maikotrindade.marvelapp.characters.view.detail
 
 import android.view.LayoutInflater
 import android.view.View

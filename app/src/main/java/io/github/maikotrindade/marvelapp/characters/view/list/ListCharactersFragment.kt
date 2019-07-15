@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.characters.ui.list
+package io.github.maikotrindade.marvelapp.characters.view.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.base.BaseFragment
 import io.github.maikotrindade.marvelapp.characters.domain.model.Character
-import io.github.maikotrindade.marvelapp.characters.ui.detail.DetailsCharacterActivity
+import io.github.maikotrindade.marvelapp.characters.view.detail.DetailsCharacterActivity
 import io.github.maikotrindade.marvelapp.util.basePagination
 import kotlinx.android.synthetic.main.fragment_list_characters.*
 
 
 class ListCharactersFragment : BaseFragment(), ListCharacterView {
 
-    private val presenter = ListCharacterPresenter(this)
+    lateinit var presenter: ListCharacterPresenter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var adapter: ListCharacterAdapter
     private var isLoading = false
@@ -36,6 +36,7 @@ class ListCharactersFragment : BaseFragment(), ListCharacterView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        ListCharacterConfigurator.INSTANCE.configure(this)
         presenter.getCharacters()
         setupUI()
     }

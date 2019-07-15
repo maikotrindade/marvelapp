@@ -3,8 +3,8 @@ package io.github.maikotrindade.marvelapp
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
-import io.github.maikotrindade.marvelapp.characters.ui.detail.DetailsCharacterActivity
-import io.github.maikotrindade.marvelapp.characters.ui.detail.DetailsCharacterPresenter
+import io.github.maikotrindade.marvelapp.characters.view.detail.DetailsCharacterActivity
+import io.github.maikotrindade.marvelapp.characters.view.detail.DetailsCharacterPresenter
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

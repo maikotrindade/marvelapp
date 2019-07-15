@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.characters.ui.detail
+package io.github.maikotrindade.marvelapp.characters.view.detail
 
 import io.github.maikotrindade.marvelapp.characters.domain.model.Comic
 import io.github.maikotrindade.marvelapp.characters.domain.model.Series

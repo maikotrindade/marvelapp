@@ -11,7 +11,7 @@
             android:id="@+id/containerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".characters.ui.list.ListCharactersFragment">
+            tools:context=".characters.view.list.ListCharactersFragment">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFavorites"

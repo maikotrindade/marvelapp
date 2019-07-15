@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.characters.ui.list
+package io.github.maikotrindade.marvelapp.characters.view.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.github.maikotrindade.marvelapp.base.BaseFragment
 import io.github.maikotrindade.marvelapp.characters.domain.model.Character
-import io.github.maikotrindade.marvelapp.characters.ui.detail.DetailsCharacterActivity
+import io.github.maikotrindade.marvelapp.characters.view.detail.DetailsCharacterActivity
+import io.github.maikotrindade.marvelapp.database.CharacterRepository
 import kotlinx.android.synthetic.main.fragment_favorite_characters.*
+import javax.inject.Inject
 
-class FavoriteCharactersFragment : BaseFragment(), FavoriteCharacterView {
+class FavoriteCharactersFragment : BaseFragment(),
+    FavoriteCharacterView {
 
-    private val presenter = FavoriteCharacterPresenter(this)
+    lateinit var presenter: FavoriteCharacterPresenter
     private lateinit var adapter: FavoriteCharacterAdapter
+
+    @Inject
+    lateinit var dataRepository: CharacterRepository
 
     companion object {
         fun newInstance(): FavoriteCharactersFragment {
@@ -30,6 +36,7 @@ class FavoriteCharactersFragment : BaseFragment(), FavoriteCharacterView {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        FavoriteCharacterConfigurator.INSTANCE.configure(this)
         setupUI()
         presenter.getFavoriteCharacters()
     }
@@ -46,7 +53,10 @@ class FavoriteCharactersFragment : BaseFragment(), FavoriteCharacterView {
 
     override fun onGetCharactersSuccess(characters: List<Character>) {
         onRequestFinished()
-        adapter = FavoriteCharacterAdapter(presenter, characters.toMutableList())
+        adapter = FavoriteCharacterAdapter(
+            presenter,
+            characters.toMutableList()
+        )
         rvFavorites.adapter = adapter
         adapter.notifyDataSetChanged()
     }

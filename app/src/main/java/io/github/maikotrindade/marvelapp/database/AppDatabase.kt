@@ -1,4 +1,4 @@
-package io.github.maikotrindade.marvelapp.persistence
+package io.github.maikotrindade.marvelapp.database
 
 import android.content.Context
 import androidx.room.Database

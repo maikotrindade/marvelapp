@@ -16,7 +16,7 @@
             android:name=".base.BaseApp"
             tools:ignore="GoogleAppIndexingWarning" tools:targetApi="m">
 
-        <activity android:name=".characters.ui.MainActivity">
+        <activity android:name=".characters.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".characters.ui.detail.DetailsCharacterActivity"/>
+        <activity android:name=".characters.view.detail.DetailsCharacterActivity"/>
 
         <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
     </application>
