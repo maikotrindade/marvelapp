@@ -2,6 +2,7 @@ package io.github.maikotrindade.marvelapp.characters.view.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,10 @@ class ListCharactersFragment : BaseFragment(), ListCharacterView {
                     pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
                     if (!isLoading) {
                         if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                            Log.d("VAI", "visibleItemCount: " + visibleItemCount)
+                            Log.d("VAI", "pastVisibleItems: " + pastVisibleItems)
+                            Log.d("VAI", "totalItemCount: " + totalItemCount)
+                            Log.d("VAI", "---------------------------------------")
                             isLoading = true
                             presenter.getCharacters(totalItemCount)
                         }

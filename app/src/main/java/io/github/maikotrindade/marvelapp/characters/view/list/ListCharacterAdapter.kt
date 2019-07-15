@@ -31,7 +31,7 @@ class ListCharacterAdapter(private val output: ListAdapterCharacterView,
     fun addMoreItems(newCharacters: MutableList<Character>) {
         val lastIndex = characters.size
         characters.addAll(newCharacters)
-        notifyItemRangeChanged(lastIndex, characters.size - 1)
+        notifyItemRangeInserted(lastIndex, characters.size - 1)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

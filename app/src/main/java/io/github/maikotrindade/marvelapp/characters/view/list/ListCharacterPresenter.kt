@@ -21,6 +21,8 @@ class ListCharacterPresenter: BasePresenter(), ListAdapterCharacterView {
     lateinit var application: WeakReference<Application>
 
     fun getCharacters(offset: Int = 0) {
+        Log.d("VAI", "OFFSET!!: " + offset)
+
         if (SharedUtils.getConnectionType(application.get()!!) == MobileConnection.NO_INTERNET) {
             view.get()?.onRequestError(io.github.maikotrindade.marvelapp.R.string.no_internet)
         } else {
