@@ -2,6 +2,7 @@ package io.github.maikotrindade.marvelapp.util
 
 const val baseUrl = "https://gateway.marvel.com:443/v1/public/"
 const val basePagination = 20
+const val databaseName = "marvelapp.db"
 
 //TODO refactor it
 const val publicKey = "aa43373452810498468d870bd9b30872"

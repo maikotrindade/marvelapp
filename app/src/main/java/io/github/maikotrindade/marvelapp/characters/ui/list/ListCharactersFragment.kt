@@ -12,16 +12,16 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.base.BaseFragment
 import io.github.maikotrindade.marvelapp.characters.domain.model.Character
-import io.github.maikotrindade.marvelapp.characters.domain.model.CharactersResponse
 import io.github.maikotrindade.marvelapp.characters.ui.detail.DetailsCharacterActivity
 import io.github.maikotrindade.marvelapp.util.basePagination
 import kotlinx.android.synthetic.main.fragment_list_characters.*
 
 
-class ListCharactersFragment : BaseFragment(), ListCharacterContract.ListCharacterView {
+class ListCharactersFragment : BaseFragment(), ListCharacterView {
 
     private val presenter = ListCharacterPresenter(this)
     private lateinit var layoutManager: GridLayoutManager
+    private lateinit var adapter: ListCharacterAdapter
     private var isLoading = false
 
     companion object {
@@ -40,13 +40,14 @@ class ListCharactersFragment : BaseFragment(), ListCharacterContract.ListCharact
         setupUI()
     }
 
-
     private fun setupUI() {
         swipeRefreshCharacters.setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         swipeRefreshCharacters.setOnRefreshListener {
             presenter.getCharacters()
         }
 
+        adapter = ListCharacterAdapter(presenter, ArrayList())
+        rvCharacters.adapter = adapter
         layoutManager = GridLayoutManager(requireContext(), 2)
         rvCharacters.layoutManager = layoutManager
         rvCharacters.setHasFixedSize(true)
@@ -72,17 +73,14 @@ class ListCharactersFragment : BaseFragment(), ListCharacterContract.ListCharact
 
     }
 
-    override fun onRequestSuccess(charactersResponse: CharactersResponse) {
+    override fun onRequestSuccess(characters: MutableList<Character>, isPagination: Boolean) {
         onRequestFinished()
-        val characters = charactersResponse.data.results
-        updateCharactersList(characters)
+        if (isPagination) {
+            adapter.addMoreItems(characters)
+        } else {
+            adapter.setItems(characters)
+        }
         isLoading = characters.size < basePagination
-    }
-
-    private fun updateCharactersList(characters: List<Character>) {
-        val adapter = ListCharacterAdapter(presenter, characters)
-        rvCharacters.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
 
     override fun onRequestError(resourceId: Int) {
@@ -97,7 +95,7 @@ class ListCharactersFragment : BaseFragment(), ListCharacterContract.ListCharact
         swipeRefreshCharacters.isRefreshing = true
     }
 
-    private fun onRequestFinished() {
+    override fun onRequestFinished() {
         isLoading = false
         if (swipeRefreshCharacters.isRefreshing) {
             swipeRefreshCharacters.isRefreshing = false
@@ -109,6 +107,5 @@ class ListCharactersFragment : BaseFragment(), ListCharacterContract.ListCharact
         intent.putExtra("toDetailsBundle", character)
         startActivity(intent)
     }
-
 
 }

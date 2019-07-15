@@ -9,13 +9,13 @@ interface BasePresenterInterface {
 
 abstract class BasePresenter : BasePresenterInterface {
 
-    var compositeDisposable: CompositeDisposable? = null
+    var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun unsubscribe() {
-        compositeDisposable = CompositeDisposable()
+        compositeDisposable.dispose()
     }
 
     override fun createCompositeDisposable() {
-        compositeDisposable?.clear()
+        compositeDisposable.clear()
     }
 }

@@ -7,7 +7,6 @@ import android.os.Build
 import io.github.maikotrindade.marvelapp.base.BaseApp
 
 
-
 object SharedUtils {
 
     fun getConnectionType(): MobileConnection {

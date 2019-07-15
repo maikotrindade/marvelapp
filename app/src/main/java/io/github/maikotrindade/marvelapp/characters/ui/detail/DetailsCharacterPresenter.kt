@@ -32,7 +32,7 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
                     view.onRequestComicsSuccess(it)
                 }
             }) { err ->
-                view.onRequestError(R.string.network_error)
+                view.onRequestError(R.string.generic_error)
                 Log.d(DetailsCharacterPresenter::class.java.simpleName, err.message)
             }
         compositeDisposable?.add(disposable)
@@ -48,7 +48,7 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
                     view.onRequestSeriesSuccess(it)
                 }
             }) { err ->
-                view.onRequestError(R.string.network_error)
+                view.onRequestError(R.string.generic_error)
                 Log.d(DetailsCharacterPresenter::class.java.simpleName, err.message)
             }
         compositeDisposable?.add(disposable)

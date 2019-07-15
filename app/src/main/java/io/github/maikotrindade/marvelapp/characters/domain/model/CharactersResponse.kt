@@ -2,6 +2,9 @@ package io.github.maikotrindade.marvelapp.characters.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class CharactersResponse (
@@ -16,11 +19,12 @@ data class CharacterData (
 	@SerializedName("results") val results : List<Character>
 )
 
+@Entity(tableName ="character")
 data class Character (
-	@SerializedName("id") val id : String,
+	@PrimaryKey(autoGenerate = false) @SerializedName("id") val id : String,
 	@SerializedName("name") val name : String,
 	@SerializedName("description") val description : String,
-	@SerializedName("thumbnail") val thumbnail : Thumbnail
+	@Embedded(prefix = "thumbnail_") @SerializedName("thumbnail") val thumbnail : Thumbnail
 ) : Parcelable {
 	companion object {
 		@JvmField

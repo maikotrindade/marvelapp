@@ -10,28 +10,16 @@ import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.characters.domain.model.Character
 import kotlinx.android.synthetic.main.item_character.view.*
 
-class ListCharacterAdapter(private val output: ListAdapterCharacterView,
-                           var characters: MutableList<Character>) : RecyclerView.Adapter<ListCharacterAdapter.ViewHolder>() {
+class FavoriteCharacterAdapter(private val output: FavoriteAdapterCharacterView,
+                               val characters: MutableList<Character>) : RecyclerView.Adapter<FavoriteCharacterAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_character, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return characters.size
-    }
-
-    fun setItems(newCharacters: MutableList<Character>) {
-        characters = newCharacters
-        notifyDataSetChanged()
-    }
-
-    fun addMoreItems(newCharacters: MutableList<Character>) {
-        val lastIndex = characters.size
-        characters.addAll(newCharacters)
-        notifyItemRangeChanged(lastIndex, characters.size - 1)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -45,13 +33,14 @@ class ListCharacterAdapter(private val output: ListAdapterCharacterView,
             .centerCrop()
             .into(holder.imgCharacter)
 
+        holder.imgStar.setImageDrawable(ContextCompat.getDrawable(holder.itemView.context, R.drawable.star))
+
         holder.itemView.setOnClickListener {
             output.onSelectCharacter(character)
         }
 
         holder.imgStar.setOnClickListener {
-            output.onFavoriteCharacter(character)
-            holder.imgStar.setImageDrawable(ContextCompat.getDrawable(holder.itemView.context, R.drawable.star))
+            output.onNotFavoriteCharacter(character, position)
         }
     }
 
@@ -59,5 +48,11 @@ class ListCharacterAdapter(private val output: ListAdapterCharacterView,
         val txtName = view.txtTitle!!
         val imgCharacter = view.imgItem!!
         val imgStar = view.imgStar!!
+    }
+
+    fun removeAt(position: Int) {
+        characters.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, characters.size)
     }
 }
