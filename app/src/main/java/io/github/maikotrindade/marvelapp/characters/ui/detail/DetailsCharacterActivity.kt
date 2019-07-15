@@ -7,7 +7,9 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import io.github.maikotrindade.marvelapp.R
 import io.github.maikotrindade.marvelapp.base.BaseActivity
-import io.github.maikotrindade.marvelapp.characters.domain.model.*
+import io.github.maikotrindade.marvelapp.characters.domain.model.Character
+import io.github.maikotrindade.marvelapp.characters.domain.model.Comic
+import io.github.maikotrindade.marvelapp.characters.domain.model.Series
 import kotlinx.android.synthetic.main.activity_details_character.*
 
 class DetailsCharacterActivity : BaseActivity(), DetailsCharacterView {
@@ -55,14 +57,12 @@ class DetailsCharacterActivity : BaseActivity(), DetailsCharacterView {
         rvSeries.setHasFixedSize(true)
     }
 
-    override fun onRequestComicsSuccess(comicsResponse: ComicsResponse) {
+    override fun onRequestComicsSuccess(comics: List<Comic>) {
         onRequestFinished()
-        val comics = comicsResponse.data.results
         updateComicsList(comics)
     }
 
-    override fun onRequestSeriesSuccess(seriesResponse: SeriesResponse) {
-        val series = seriesResponse.data.results
+    override fun onRequestSeriesSuccess(series: List<Series>) {
         updateSeriesList(series)
     }
 

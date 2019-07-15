@@ -22,14 +22,14 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
         }
     }
 
-    private fun requestComicsServer(characterId: String) {
+    fun requestComicsServer(characterId: String) {
         val timestamp = getEpochTime()
         val hash = getHash(timestamp)
 
         val disposable = CharactersService.requestComics(timestamp, publicKey, hash!!, characterId)
             .subscribe({ res ->
                 res.body()?.let {
-                    view.onRequestComicsSuccess(it)
+                    view.onRequestComicsSuccess(it.data.results)
                 }
             }) { err ->
                 view.onRequestError(R.string.generic_error)
@@ -38,14 +38,14 @@ class DetailsCharacterPresenter(private val view: DetailsCharacterView) : BasePr
         compositeDisposable?.add(disposable)
     }
 
-    private fun requestSeriesServer(characterId: String) {
+    fun requestSeriesServer(characterId: String) {
         val timestamp = getEpochTime()
         val hash = getHash(timestamp)
 
         val disposable = CharactersService.requestSeries(timestamp, publicKey, hash!!, characterId)
             .subscribe({ res ->
                 res.body()?.let {
-                    view.onRequestSeriesSuccess(it)
+                    view.onRequestSeriesSuccess(it.data.results)
                 }
             }) { err ->
                 view.onRequestError(R.string.generic_error)

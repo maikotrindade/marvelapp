@@ -1,13 +1,13 @@
 package io.github.maikotrindade.marvelapp.characters.ui.detail
 
-import io.github.maikotrindade.marvelapp.characters.domain.model.ComicsResponse
-import io.github.maikotrindade.marvelapp.characters.domain.model.SeriesResponse
+import io.github.maikotrindade.marvelapp.characters.domain.model.Comic
+import io.github.maikotrindade.marvelapp.characters.domain.model.Series
 
 interface DetailsCharacterView {
 
     fun onRequestStared()
-    fun onRequestComicsSuccess(comicsResponse: ComicsResponse)
-    fun onRequestSeriesSuccess(seriesResponse: SeriesResponse)
+    fun onRequestComicsSuccess(comics: List<Comic>)
+    fun onRequestSeriesSuccess(series: List<Series>)
     fun onRequestError(resourceId: Int)
 
 }
