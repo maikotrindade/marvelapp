@@ -18,6 +18,10 @@ android {
                 arg("room.schemaLocation", "$projectDir/schemas".toString())
             }
         }
+        testOptions {
+            unitTests.includeAndroidResources = true
+            unitTests.returnDefaultValues = true
+        }
     }
     buildTypes {
         debug {
@@ -66,9 +70,14 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    
-    testImplementation 'junit:junit:4.13-beta-3'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:core:1.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
+    androidTestImplementation 'com.google.truth:truth:0.42'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
     testImplementation 'org.mockito:mockito-inline:2.13.0'

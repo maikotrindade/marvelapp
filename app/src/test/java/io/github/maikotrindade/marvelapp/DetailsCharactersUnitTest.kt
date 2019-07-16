@@ -8,10 +8,11 @@ import io.github.maikotrindade.marvelapp.characters.view.detail.DetailsCharacter
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
+import java.lang.ref.WeakReference
 
 class DetailsCharactersUnitTest {
 
@@ -19,15 +20,15 @@ class DetailsCharactersUnitTest {
     @Mock lateinit var activity: DetailsCharacterActivity
     private lateinit var characterId: String
 
-    @Rule
-    @JvmField
-    val rule = MockitoJUnit.rule()!!
+    @Rule @JvmField val rule = MockitoJUnit.rule()!!
     @Rule @JvmField var testSchedulerRule = RxSchedulerRule()
 
     @Before
     fun setup() {
         activity = mock()
-        presenter = DetailsCharacterPresenter(activity)
+        presenter = DetailsCharacterPresenter()
+        presenter.view = WeakReference(activity)
+        activity.presenter = presenter
         characterId = "1009368"
     }
 
@@ -40,7 +41,7 @@ class DetailsCharactersUnitTest {
     @Test
     fun requestComics_doesNotCallError() {
         presenter.requestComicsServer(characterId)
-        verify(activity, never()).onRequestError(ArgumentMatchers.anyInt())
+        verify(activity, never()).onRequestError(anyInt())
     }
 
     @Test
@@ -52,7 +53,8 @@ class DetailsCharactersUnitTest {
     @Test
     fun requestSeries_doesNotCallError() {
         presenter.requestSeriesServer(characterId)
-        verify(activity, never()).onRequestError(ArgumentMatchers.anyInt())
+        verify(activity, never()).onRequestError(anyInt())
     }
+
 
 }
